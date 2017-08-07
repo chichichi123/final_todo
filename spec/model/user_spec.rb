@@ -9,12 +9,10 @@ RSpec.describe User, type: :model do
       should have_db_column(:name).of_type(:string)
       should have_db_column(:email).of_type(:string)
       should have_db_column(:password_digest).of_type(:string)
-      should have_db_column(:user_id).of_type(:integer)
     end
 
     describe "validates presence of attributes" do
-      it { is_expected.to validate_presence_of(:name)}
-      it { is_expected.to validate_presence_of(:email)}
+
       it { is_expected.to validate_presence_of(:password)}
     end
 
@@ -25,7 +23,7 @@ RSpec.describe User, type: :model do
     #happy_path
     describe "can be created when all attributes are present" do
       When(:user) { User.create(
-                      fullname: "Testing",
+                      name: "Testing",
                       email: "test@gmail.com",
                       password: "12345678",
       )}
@@ -33,25 +31,14 @@ RSpec.describe User, type: :model do
     end
 
     # unhappy_path
-    describe "cannot be created without name" do
-      When(:user) { User.create(email: "testing@gmail.com", password: "testing") }
-      Then { user.valid? == false }
-    end
-
-
-    describe "cannot be created without a email" do
-      When(:user) { User.create(password: "12345678", name: "Test") }
-      Then { user.valid? == false }
-    end
-
     describe "cannot be created without a password" do
       When(:user) { User.create(email: "test@gmail.com", name: "Test") }
       Then { user.valid? == false }
     end
 
     describe "should permit valid email only" do
-      let(:user1) { User.create(fullname: "Testing", email: "testing@gmail.com", password: "123456")}
-      let(:user2) { User.create(fullname: "TestTwo",email: "test.com", password: "123456") }
+      let(:user1) { User.create(name: "Testing", email: "testing@gmail.com", password: "123456")}
+      let(:user2) { User.create(name: "TestTwo",email: "test.com", password: "123456") }
 
       # happy_path
       it "sign up with valid email" do
