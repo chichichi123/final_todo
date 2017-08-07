@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+<p>
+  <strong>Title:</strong>
+  <%= @todo_list.title %>
+</p>
+<p>
+  <strong>Description:</strong>
+  <%= @todo_list.description %>
+</p>
+<% unless @todo_list.avatar.file.nil? %>
+  <%= image_tag @todo_list.avatar.thumb.url %>
+<% else %>
+  <p> no pic uploaded with todo list </p>
+<% end %>
+<% @todo_list.todo_items.each do |todo_item| %>
+  <div id="todo_items_wrapper">
+    <%#= render partial: "todo_items/todo_items", locals:  {todo_item: todo_item} %>
+    <p><%= todo_item.content %></p>
+  </div>
+<% end %>
+<div id="form">
+  <%= form_for [@todo_list, TodoItem.new] do |f| %>
+    <%= f.text_field :content, placeholder: "New Todo" %>
+    <%= f.submit %>
+  <% end %>
+  <%#= render "todo_items/form" %>
+</div>
+<%= link_to 'Edit', edit_todo_list_path(@todo_list) %> |
+<%= link_to 'Back', todo_lists_path %>
+<%= button_to "show all To Dos", todo_lists_path, method: :get %>
+<li><%= link_to "Sign Out", logout_path,method: :delete %></li>

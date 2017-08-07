@@ -3,12 +3,15 @@
   <head>
     <title>FinalTodo</title>
     <%= csrf_meta_tags %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
   <body>
+    <% if logged_in? %>
+      <p>You're logged in as <%= current_user.name %></p>
+    <% end %>
     <%= yield %>
+    <button id="joke"> Click For a Joke ( this is the ajax feature and API) </button>
+    <p id="haha"></p>
   </body>
 </html>

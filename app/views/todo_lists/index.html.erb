@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+<h1>Todo Lists</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @todo_lists.each do |todo_list| %>
+      <tr>
+        <td><%= todo_list.title %></td>
+        <td><%= todo_list.description %></td>
+        <td><%= link_to 'Show this To Do', todo_list_path(todo_list.id) %></td>
+        <td><%= link_to 'Edit this To Do', edit_todo_list_path(todo_list.id) %></td>
+        <td><%= link_to 'Delete this To Do', todo_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+<%= link_to 'New Todo List', new_todo_list_path %>
+<% if @todo_lists.blank? %>
+  <h4>There are no todo lists containing the term <%= params[:search] %>.</h4>
+<% end %>
+<li><%= link_to "Sign Out", logout_path,method: :delete %></li>
+<%= form_tag(todo_lists_path, :method => "get", id: "search-form") do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search Todo Lists" %>
+  <%= submit_tag "Search", :name => nil %>
+<% end %>

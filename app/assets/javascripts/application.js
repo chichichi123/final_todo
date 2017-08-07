@@ -13,3 +13,18 @@
 //= require rails-ujs
 //= require turbolinks
 //= require_tree .
+
+//= require jquery
+
+$(document).on("turbolinks:load", function(){
+  $("#joke").on("click", function(){
+
+    $.ajax({
+      url: "/joke",
+      type: "get",
+      success: function(data){
+        $("#haha").html(data.joke)
+      }
+    })
+  })
+})
