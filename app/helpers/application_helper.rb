@@ -1,4 +1,4 @@
 module ApplicationHelper
-  require 'capybara/rails'
+  # require 'capybara/rails'
 
 end
